@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -76,8 +77,9 @@ fun AddAndEditNote(
                 Text("Cancel")
             }
             Button(onClick = {
-                if (note.id == 0) {
-                    if (title.value.isNotBlank() && content.value.isNotBlank()) {
+                if (title.value.isNotBlank() && content.value.isNotBlank()) {
+                    if (note.id == 0) {
+
                         onSave(
                             Note(
                                 id = System.currentTimeMillis().toInt(),
@@ -85,11 +87,12 @@ fun AddAndEditNote(
                                 content = content.value
                             )
                         )
+
+                    } else {
+                        note.title = title.value
+                        note.content = content.value
+                        onSave(note)
                     }
-                } else {
-                    note.title = title.value
-                    note.content = content.value
-                    onSave(note)
                 }
             }) {
                 Text("Save")
